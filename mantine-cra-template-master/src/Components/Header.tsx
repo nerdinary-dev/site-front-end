@@ -41,8 +41,11 @@ import {
   IconArrowLeft,
   IconSun,
   IconMoonStars,
+  IconBasket,
+  IconUser
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -85,6 +88,19 @@ const useStyles = createStyles((theme) => ({
         theme.colorScheme === "dark"
           ? theme.colors.dark[7]
           : theme.colors.gray[0],
+    }),
+
+    "&:active": theme.activeStyles,
+  },
+
+  icon: {
+    cursor: "pointer",
+    transition: ".2s ease-in-out",
+    borderRadius: "50%",
+
+    ...theme.fn.hover({
+        boxShadow: "rgba(200, 200, 200, 0.25) 0px 0px 30px",
+        scale: "1.2",
     }),
 
     "&:active": theme.activeStyles,
@@ -133,6 +149,13 @@ const inputData = [
   "Blitz.js",
 ];
 
+const hardware_data = [
+  {
+    title: "",
+
+  }
+]
+
 const mockdata = [
   {
     icon: IconCode,
@@ -166,11 +189,18 @@ const mockdata = [
   },
 ];
 
-export function HeaderMegaMenu() {
+interface HeaderMegaMenuProps {
+  isLoggedIn: boolean;
+  onLogin: () => void;
+}
+
+export function HeaderMegaMenu({ isLoggedIn, onLogin }: HeaderMegaMenuProps)  {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { classes, theme } = useStyles();
+
+  console.log(isLoggedIn)
 
   const links = mockdata.map((item) => (
     <UnstyledButton className={classes.subLink} key={item.title}>
@@ -200,13 +230,14 @@ export function HeaderMegaMenu() {
       <Header height={80} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           <a href="/">
-          <Image
-            style={{
-              filter: theme.colorScheme === "dark" ? "invert(1)" : "invert(0)",
-            }}
-            width={200}
-            src={Logo}
-          />
+            <Image
+              style={{
+                filter:
+                  theme.colorScheme === "dark" ? "invert(1)" : "invert(0)",
+              }}
+              width={200}
+              src={Logo}
+            />
           </a>
           <Group
             sx={{ height: "100%" }}
@@ -353,20 +384,60 @@ export function HeaderMegaMenu() {
             </a>
           </Group>
 
-          <Group className={classes.hiddenMobile}>
-            <Button component={Link} to="/login" variant="default">
-              Log in
-            </Button>
-            <Button
-              component={Link} to="/signup"
-              color={
-                theme.colorScheme === "dark" ? "green" : theme.fn.primaryColor()
-              }
-            >
-              Sign up
-            </Button>
-          </Group>
-
+          {isLoggedIn === false && (
+            <Group className={classes.hiddenMobile}>
+              {/* <Button component={Link} to="/login" variant="default">
+                Log in
+              </Button> */}
+              <Button
+                onClick={() => {
+                  onLogin();
+                }}
+                variant="default"
+              >
+                Log in
+              </Button>
+              <Button
+                component={Link}
+                to="/signup"
+                color={
+                  theme.colorScheme === "dark"
+                    ? "green"
+                    : theme.fn.primaryColor()
+                }
+              >
+                Sign up
+              </Button>
+            </Group>
+          )}
+          {isLoggedIn === true && (
+            <Group className={classes.hiddenMobile}>
+              <Group p="md">
+                <Anchor href="/cart">
+                  <IconBasket
+                    size={rem(32)}
+                    className={classes.icon}
+                    color={
+                      theme.colorScheme === "dark"
+                        ? "white"
+                        : theme.fn.primaryColor()
+                    }
+                  />
+                </Anchor>
+                <Anchor href="/profile">
+                  <IconUser
+                    size={rem(32)}
+                    className={classes.icon}
+                    color={
+                      theme.colorScheme === "dark"
+                        ? "white"
+                        : theme.fn.primaryColor()
+                    }
+                  />
+                </Anchor>
+              </Group>
+            </Group>
+          )}
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
@@ -452,7 +523,8 @@ export function HeaderMegaMenu() {
               Log in
             </Button>
             <Button
-              component={Link} to="/signup"
+              component={Link}
+              to="/signup"
               color={
                 theme.colorScheme === "dark" ? "green" : theme.fn.primaryColor()
               }

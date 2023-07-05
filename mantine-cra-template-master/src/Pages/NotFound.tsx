@@ -8,7 +8,6 @@ import {
   rem,
 } from "@mantine/core";
 import { Illustration } from "../Components/Illustration";
-import { HeaderMegaMenu } from "../Components/Header";
 import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
@@ -60,7 +59,6 @@ export function NothingFoundBackground() {
 
   return (
     <>
-      <HeaderMegaMenu />
       <Container className={classes.root}>
         <div className={classes.inner}>
           <Illustration className={classes.image} />

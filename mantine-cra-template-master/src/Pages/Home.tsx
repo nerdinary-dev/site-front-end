@@ -4,78 +4,10 @@ import { CardsCarousel } from "../Components/Carousel";
 import { FooterLinks } from "../Components/Footer";
 import { ArticleCarousel } from "../Components/Articles";
 
-const data = [
-  {
-    title: "About",
-    links: [
-      {
-        label: "Features",
-        link: "#",
-      },
-      {
-        label: "Pricing",
-        link: "#",
-      },
-      {
-        label: "Support",
-        link: "#",
-      },
-      {
-        label: "Forums",
-        link: "#",
-      },
-    ],
-  },
-  {
-    title: "Project",
-    links: [
-      {
-        label: "Contribute",
-        link: "#",
-      },
-      {
-        label: "Media assets",
-        link: "#",
-      },
-      {
-        label: "Changelog",
-        link: "#",
-      },
-      {
-        label: "Releases",
-        link: "#",
-      },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      {
-        label: "Join Discord",
-        link: "#",
-      },
-      {
-        label: "Follow on Twitter",
-        link: "#",
-      },
-      {
-        label: "Email newsletter",
-        link: "#",
-      },
-      {
-        label: "GitHub discussions",
-        link: "#",
-      },
-    ],
-  },
-];
-
-
 export default function Home() {
   return (
     <Stack>
-      <HeaderMegaMenu />
-      <CardsCarousel />
+      {/* <CardsCarousel />
       <Group position="center">
         <ArticleCarousel
           title="Meilleures Ventes"
@@ -89,8 +21,7 @@ export default function Home() {
           title="Recommandation"
           description="Des articles rien que pour toi bebou"
         />
-      </Group>
-      <FooterLinks data={data} />
+      </Group> */}
     </Stack>
   );
 }

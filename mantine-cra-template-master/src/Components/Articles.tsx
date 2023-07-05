@@ -170,7 +170,7 @@ const data = [
     price: "160,49€",
   },
   {
-    id: "1234ab",
+    id: "1234abc",
     image: phone,
     title: "Iphone 12",
     description: "128 Go - Noir - Débloqué",
@@ -204,7 +204,7 @@ export const ArticleCarousel = ({
 
   useEffect(() => {
     if (showLoader) {
-      const timeoutId = setTimeout(() => setShowLoader(false), 2000);
+      const timeoutId = setTimeout(() => setShowLoader(false), 5000);
       return () => clearTimeout(timeoutId);
     }
   }, [showLoader]);

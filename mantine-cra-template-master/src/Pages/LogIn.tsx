@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Paper,
   createStyles,
@@ -10,10 +11,10 @@ import {
   Image,
   Anchor,
   rem,
-  em,
 } from "@mantine/core";
+
 import Logo from "../assets/Logo.svg";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -46,17 +47,27 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const login = (email: string, password: string) => {
-  if (email == 'test' && password == '1234') {
-    return true
+  if (email === "test" && password === "1234") {
+    return true;
   }
-  return false
+  return false;
 };
 
-export function LogIn() {
+export const LogIn = ({ onLogin }: { onLogin: () => void }) => {
   const { theme, classes } = useStyles();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = () => {
-    
+    if (login(email, password)) {
+      onLogin();
+      console.log("Succeed");
+      navigate('/');
+    } else {
+      // Invalid login, show error message or handle accordingly
+      console.log("Invalid credentials");
+    }
   };
 
   return (
@@ -77,12 +88,16 @@ export function LogIn() {
           placeholder="hello@gmail.com"
           size="md"
           mt="md"
+          value={email}
+          onChange={(event) => setEmail(event.currentTarget.value)}
         />
         <PasswordInput
           label="Password"
           placeholder="Your password"
           mt="md"
           size="md"
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
         />
         <Checkbox label="Keep me logged in" mt="xl" size="md" />
         <Button fullWidth mt="xl" size="md" onClick={handleSubmit}>
@@ -91,11 +106,7 @@ export function LogIn() {
 
         <Text ta="center" mt="md">
           Don&apos;t have an account?{" "}
-          <Anchor<"a">
-            href="/signup"
-            weight={700}
-            // onClick={(event) => event.preventDefault()}
-          >
+          <Anchor<"a"> href="/signup" weight={700}>
             Register
           </Anchor>
         </Text>
