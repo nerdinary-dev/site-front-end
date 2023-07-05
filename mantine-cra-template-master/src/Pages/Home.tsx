@@ -7,7 +7,7 @@ import { ArticleCarousel } from "../Components/Articles";
 export default function Home() {
   return (
     <Stack>
-      {/* <CardsCarousel />
+      <CardsCarousel />
       <Group position="center">
         <ArticleCarousel
           title="Meilleures Ventes"
@@ -21,7 +21,7 @@ export default function Home() {
           title="Recommandation"
           description="Des articles rien que pour toi bebou"
         />
-      </Group> */}
+      </Group>
     </Stack>
   );
 }
