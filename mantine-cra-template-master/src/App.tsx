@@ -3,6 +3,7 @@ import { ThemeProvider } from "./ThemeProvider";
 import { SignUp } from "./Pages/SignUp";
 import { LogIn } from "./Pages/LogIn";
 import { NothingFoundBackground } from "./Pages/NotFound";
+import { useLocalStorage } from "@mantine/hooks";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,7 +11,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Home from "./Pages/Home";
-import { Item } from "./Pages/Item";
+import ItemPage from "./Pages/Item";
 import { HeaderMegaMenu } from "./Components/Header";
 import { Profile } from "./Pages/Profile";
 import CartPage from "./Pages/Cart";
@@ -22,7 +23,10 @@ import { FooterLinks } from "./Components/Footer";
 // ];
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useLocalStorage<Boolean>({
+    key: "isLoggedIn",
+    defaultValue: false,
+  });
 
   // Function to handle login
   const handleLogin = () => {
@@ -38,20 +42,24 @@ export default function App() {
     <ThemeProvider>
       <Router>
         <Routes>
-          <Route path="/" element={
-            <>
-            <HeaderMegaMenu isLoggedIn={isLoggedIn} onLogin={handleLogin} />
-            <Home />
-            <FooterLinks />
-            </>
-          } />
+          <Route
+            path="/"
+            element={
+              <>
+                <HeaderMegaMenu />
+                <Home />
+                <FooterLinks />
+              </>
+            }
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn onLogin={handleLogin} />} />
           <Route
             path="/cart"
             element={
               <>
-                <HeaderMegaMenu isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+                <HeaderMegaMenu />
+                {/* {isLoggedIn ? <CartPage /> : <Navigate to={"/"} replace />} */}
                 <CartPage />
                 <FooterLinks />
               </>
@@ -61,23 +69,42 @@ export default function App() {
             path="/profile"
             element={
               <>
-              <HeaderMegaMenu isLoggedIn={isLoggedIn} onLogin={handleLogin} />
-              <Profile
-                name="John Doe"
-                email="john.doe@example.com"
-                bio="Hi, I'm John Doe. I'm a software developer from San Francisco."
-                avatarUrl="https://i.pravatar.cc/300"
-              />
-              <FooterLinks />
+                <HeaderMegaMenu />
+                {/* {isLoggedIn ? (
+                  <Profile
+                    name="John Doe"
+                    email="john.doe@example.com"
+                    bio="Hi, I'm John Doe. I'm a software developer from San Francisco."
+                    avatarUrl="https://i.pravatar.cc/300"
+                  />
+                ) : (
+                  <Navigate to={"/"} replace />
+                )} */}
+                <Profile
+                    name="John Doe"
+                    email="john.doe@example.com"
+                    bio="Hi, I'm John Doe. I'm a software developer from San Francisco."
+                    avatarUrl="https://i.pravatar.cc/300"
+                  />
+                <FooterLinks />
               </>
             }
           />
-          <Route path="/:title/:id" element={<Item />} />
+          <Route
+            path="/:title/:id"
+            element={
+              <>
+                <HeaderMegaMenu />
+                <ItemPage />
+                <FooterLinks />
+              </>
+            }
+          />
           <Route
             path="*"
             element={
               <>
-                <HeaderMegaMenu isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+                <HeaderMegaMenu />
                 <NothingFoundBackground />
                 <FooterLinks />
               </>

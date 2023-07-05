@@ -14,6 +14,7 @@ import {
 import Logo from "../assets/Logo.svg";
 import bg from "../assets/OIG.png"
 import { PasswordStrength } from "../Components/PasswordStrength";
+import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -47,6 +48,9 @@ const useStyles = createStyles((theme) => ({
 
 export function SignUp() {
   const { theme, classes } = useStyles();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={30}>
@@ -65,6 +69,8 @@ export function SignUp() {
           placeholder="Your name"
           size="md"
           mt="md"
+          value={name}
+          onChange={(event) => setName(event.currentTarget.value)}
         />
 
         <TextInput
@@ -72,6 +78,8 @@ export function SignUp() {
           placeholder="hello@gmail.com"
           size="md"
           mt="md"
+          value={email}
+          onChange={(event) => setEmail(event.currentTarget.value)}
         />
 
         <PasswordStrength />

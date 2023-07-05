@@ -28,6 +28,7 @@ import {
 
 import Logo from "../assets/Logo.svg";
 import { useDisclosure } from "@mantine/hooks";
+import { useLocalStorage } from '@mantine/hooks';
 import {
   IconNotification,
   IconCode,
@@ -44,7 +45,7 @@ import {
   IconBasket,
   IconUser
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -193,8 +194,14 @@ interface HeaderMegaMenuProps {
   isLoggedIn: boolean;
   onLogin: () => void;
 }
+// { isLoggedIn, onLogin }: HeaderMegaMenuProps
+export function HeaderMegaMenu()  {
+  const [isLoggedIn, setIsLoggedIn] = useLocalStorage<Boolean>({
+    key: "isLoggedIn"
+  });
 
-export function HeaderMegaMenu({ isLoggedIn, onLogin }: HeaderMegaMenuProps)  {
+  const navigate = useNavigate();
+  console.log("$ log: ", isLoggedIn)
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -390,9 +397,11 @@ export function HeaderMegaMenu({ isLoggedIn, onLogin }: HeaderMegaMenuProps)  {
                 Log in
               </Button> */}
               <Button
-                onClick={() => {
-                  onLogin();
-                }}
+              component={Link}
+              to="/signup"
+                // onClick={() => {
+                //   setIsLoggedIn(true)
+                // }}
                 variant="default"
               >
                 Log in
