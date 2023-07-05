@@ -150,11 +150,67 @@ const inputData = [
   "Blitz.js",
 ];
 
-const hardware_data = [
+const gaming_data = [
   {
-    title: "",
+    title: "Consoles",
+  },
+  {
+    title: "Games",
+  },
+  {
+    title: "Accessories",
+  },
+  {
+    title: "Merchandise",
+  },
+  {
+    title: "Streaming",
+  },
+  {
+    title: "Gift Cards",
+  },
+]
 
-  }
+const nerd_data = [
+  {
+    title: "Comics",
+  },
+  {
+    title: "Manga",
+  },
+  {
+    title: "Anime",
+  },
+  {
+    title: "Cosplay",
+  },
+  {
+    title: "Movies",
+  },
+  {
+    title: "Books",
+  },
+]
+
+const techno_data = [
+  {
+    title: "Computers",
+  },
+  {
+    title: "Smartphones",
+  },
+  {
+    title: "Gadgets",
+  },
+  {
+    title: "Software",
+  },
+  {
+    title: "Hardware",
+  },
+  {
+    title: "VR/AR",
+  },
 ]
 
 const mockdata = [
@@ -205,6 +261,9 @@ export function HeaderMegaMenu()  {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const [gameLinksOpened, { toggle: toggleGameLinks }] = useDisclosure(false);
+  const [nerdLinksOpened, { toggle: toggleNerdLinks }] = useDisclosure(false);
+  const [technoLinksOpened, { toggle: toggleTechnoLinks }] = useDisclosure(false);
   const { classes, theme } = useStyles();
 
   console.log(isLoggedIn)
@@ -226,6 +285,42 @@ export function HeaderMegaMenu()  {
           </Text>
           <Text size="xs" color="dimmed">
             {item.description}
+          </Text>
+        </div>
+      </Group>
+    </UnstyledButton>
+  ));
+
+  const gameLinks = gaming_data.map((item) => (
+    <UnstyledButton className={classes.subLink} key={item.title}>
+      <Group noWrap align="flex-start">
+        <div>
+          <Text size="sm" fw={500}>
+            {item.title}
+          </Text>
+        </div>
+      </Group>
+    </UnstyledButton>
+  ));
+
+  const nerdLinks = nerd_data.map((item) => (
+    <UnstyledButton className={classes.subLink} key={item.title}>
+      <Group noWrap align="flex-start">
+        <div>
+          <Text size="sm" fw={500}>
+            {item.title}
+          </Text>
+        </div>
+      </Group>
+    </UnstyledButton>
+  ));
+
+  const technoLinks = techno_data.map((item) => (
+    <UnstyledButton className={classes.subLink} key={item.title}>
+      <Group noWrap align="flex-start">
+        <div>
+          <Text size="sm" fw={500}>
+            {item.title}
           </Text>
         </div>
       </Group>
@@ -262,7 +357,7 @@ export function HeaderMegaMenu()  {
                 <a href="#" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Hardware
+                      Gaming
                     </Box>
                     <IconChevronDown
                       size={16}
@@ -278,7 +373,7 @@ export function HeaderMegaMenu()  {
 
               <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
                 <Group position="apart" px="md">
-                  <Text fw={500}>Hardware</Text>
+                  <Text fw={500}>Gaming</Text>
                   <Anchor href="#" fz="xs">
                     View all
                   </Anchor>
@@ -291,7 +386,7 @@ export function HeaderMegaMenu()  {
                 />
 
                 <SimpleGrid cols={2} spacing={0}>
-                  {links}
+                  {gameLinks}
                 </SimpleGrid>
               </HoverCard.Dropdown>
             </HoverCard>
@@ -306,7 +401,7 @@ export function HeaderMegaMenu()  {
                 <a href="#" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Video Games
+                      Nerd Culture
                     </Box>
                     <IconChevronDown
                       size={16}
@@ -322,7 +417,7 @@ export function HeaderMegaMenu()  {
 
               <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
                 <Group position="apart" px="md">
-                  <Text fw={500}>Video Games</Text>
+                  <Text fw={500}>Nerd Culture</Text>
                   <Anchor href="#" fz="xs">
                     View all
                   </Anchor>
@@ -335,7 +430,7 @@ export function HeaderMegaMenu()  {
                 />
 
                 <SimpleGrid cols={2} spacing={0}>
-                  {links}
+                  {nerdLinks}
                 </SimpleGrid>
               </HoverCard.Dropdown>
             </HoverCard>
@@ -350,7 +445,7 @@ export function HeaderMegaMenu()  {
                 <a href="#" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Goodies
+                      Technologie
                     </Box>
                     <IconChevronDown
                       size={16}
@@ -366,7 +461,7 @@ export function HeaderMegaMenu()  {
 
               <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
                 <Group position="apart" px="md">
-                  <Text fw={500}>Goodies</Text>
+                  <Text fw={500}>Technologie</Text>
                   <Anchor href="#" fz="xs">
                     View all
                   </Anchor>
@@ -379,7 +474,7 @@ export function HeaderMegaMenu()  {
                 />
 
                 <SimpleGrid cols={2} spacing={0}>
-                  {links}
+                  {technoLinks}
                 </SimpleGrid>
               </HoverCard.Dropdown>
             </HoverCard>
@@ -469,14 +564,10 @@ export function HeaderMegaMenu()  {
             my="sm"
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
-
-          <a href="#" className={classes.link}>
-            Home
-          </a>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
+          <UnstyledButton className={classes.link} onClick={toggleGameLinks}>
             <Center inline>
               <Box component="span" mr={5}>
-                Features
+                Gaming
               </Box>
               <IconChevronDown
                 size={16}
@@ -488,7 +579,42 @@ export function HeaderMegaMenu()  {
               />
             </Center>
           </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
+          <Collapse in={gameLinksOpened}>{gameLinks}</Collapse>
+
+          <UnstyledButton className={classes.link} onClick={toggleNerdLinks}>
+            <Center inline>
+              <Box component="span" mr={5}>
+                Nerd Culture
+              </Box>
+              <IconChevronDown
+                size={16}
+                color={
+                  theme.colorScheme === "dark"
+                    ? "green"
+                    : theme.fn.primaryColor()
+                }
+              />
+            </Center>
+          </UnstyledButton>
+          <Collapse in={nerdLinksOpened}>{nerdLinks}</Collapse>
+
+          <UnstyledButton className={classes.link} onClick={toggleTechnoLinks}>
+            <Center inline>
+              <Box component="span" mr={5}>
+                Technologie
+              </Box>
+              <IconChevronDown
+                size={16}
+                color={
+                  theme.colorScheme === "dark"
+                    ? "green"
+                    : theme.fn.primaryColor()
+                }
+              />
+            </Center>
+          </UnstyledButton>
+          <Collapse in={technoLinksOpened}>{technoLinks}</Collapse>
+          
           <a href="#" className={classes.link}>
             About Us
           </a>

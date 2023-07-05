@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ps4 from "../assets/ps4.webp";
 import { useMediaQuery, useLocalStorage } from "@mantine/hooks";
 import {
   Container,
@@ -132,12 +133,12 @@ const [cart, setCart] = useLocalStorage<Item[]>({
 
   // Define a sample item to add
 const testItem: Item = {
-  id: 'test',
-  name: 'Test Item',
-  description: 'This is a test item',
-  price: 9.99,
+  id: 'ps4',
+  name: 'PS4 black 500go',
+  description: 'As new',
+  price: 499.99,
   quantity: 1,
-  image: 'https://via.placeholder.com/100',
+  image: ps4,
 };
 
 // Define a function to handle the button click
