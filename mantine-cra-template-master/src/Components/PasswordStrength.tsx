@@ -36,9 +36,7 @@ export function PasswordStrength() {
   const [value, setValue] = useInputState('');
   const [confirmValue, setConfirmValue] = useInputState('');
   const strength = getStrength(value);
-  // const checks = requirements.map((requirement, index) => (
-  //   <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(value)} />
-  // ));
+  
   const bars = Array(4)
     .fill(0)
     .map((_, index) => (

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import loader_gif from "../assets/loader.gif";
 import {
   Paper,
   createStyles,
@@ -55,15 +56,29 @@ const login = (email: string, password: string) => {
 
 export const LogIn = ({ onLogin }: { onLogin: () => void }) => {
   const { theme, classes } = useStyles();
+  const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (showLoader) {
+      const timeoutId = setTimeout(() => setShowLoader(false), 3000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [showLoader]);
+
+  const delay = (ms: number | undefined) => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+  const handleSubmit = async () => {
     if (login(email, password)) {
       onLogin();
       console.log("Succeed");
-      navigate('/');
+      setShowLoader(true);
+      await delay(3000);
+      navigate("/");
     } else {
       // Invalid login, show error message or handle accordingly
       console.log("Invalid credentials");
@@ -71,46 +86,78 @@ export const LogIn = ({ onLogin }: { onLogin: () => void }) => {
   };
 
   return (
-    <div className={classes.wrapper}>
-      <Paper className={classes.form} radius={0} p={30}>
-        <Title order={2} className={classes.title} ta="center" mt="md" mb={50}>
-          Welcome back to
-          <Image
-            style={{
-              filter: theme.colorScheme === "dark" ? "invert(1)" : "invert(0)",
-            }}
-            src={Logo}
+    <>
+      {showLoader && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "rgba(255, 255, 255, 0.5)",
+            backdropFilter: "blur(5px)",
+            zIndex: 10,
+          }}
+        >
+          <img
+            src={loader_gif}
+            alt="Loading..."
+            style={{ transform: "scale(0.2)" }}
           />
-        </Title>
+        </div>
+      )}
+      <div className={classes.wrapper}>
+        <Paper className={classes.form} radius={0} p={30}>
+          <Title
+            order={2}
+            className={classes.title}
+            ta="center"
+            mt="md"
+            mb={50}
+          >
+            Welcome back to
+            <Image
+              style={{
+                filter:
+                  theme.colorScheme === "dark" ? "invert(1)" : "invert(0)",
+              }}
+              src={Logo}
+            />
+          </Title>
 
-        <TextInput
-          label="Email address"
-          placeholder="hello@gmail.com"
-          size="md"
-          mt="md"
-          value={email}
-          onChange={(event) => setEmail(event.currentTarget.value)}
-        />
-        <PasswordInput
-          label="Password"
-          placeholder="Your password"
-          mt="md"
-          size="md"
-          value={password}
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-        <Checkbox label="Keep me logged in" mt="xl" size="md" />
-        <Button fullWidth mt="xl" size="md" onClick={handleSubmit}>
-          Login
-        </Button>
+          <TextInput
+            label="Email address"
+            placeholder="hello@gmail.com"
+            size="md"
+            mt="md"
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
+          />
+          <PasswordInput
+            label="Password"
+            placeholder="Your password"
+            mt="md"
+            size="md"
+            value={password}
+            onChange={(event) => setPassword(event.currentTarget.value)}
+          />
+          <Checkbox label="Keep me logged in" mt="xl" size="md" />
+          <Button fullWidth mt="xl" size="md" onClick={handleSubmit}>
+            Login
+          </Button>
 
-        <Text ta="center" mt="md">
-          Don&apos;t have an account?{" "}
-          <Anchor<"a"> href="/signup" weight={700}>
-            Register
-          </Anchor>
-        </Text>
-      </Paper>
-    </div>
+          <Text ta="center" mt="md">
+            Don&apos;t have an account?{" "}
+            <Anchor<"a"> href="/signup" weight={700}>
+              Register
+            </Anchor>
+          </Text>
+        </Paper>
+      </div>
+    </>
   );
-}
+};

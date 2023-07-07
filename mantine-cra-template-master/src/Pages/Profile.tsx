@@ -12,6 +12,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocalStorage } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileProps {
   name: string;
@@ -37,6 +38,8 @@ export const Profile = ({ name, email, bio, avatarUrl }: ProfileProps) => {
   const [modify, setModify] = useState(false);
   const [description, setDescription] = useState(bio);
   const [_email, setEmail] = useState(email);
+  const [_name, setName] = useState(name);
+  const navigate = useNavigate();
 
   const notifyError = () =>
     toast.error("Invalid Email", {
@@ -61,11 +64,19 @@ export const Profile = ({ name, email, bio, avatarUrl }: ProfileProps) => {
               size={120}
               style={{ marginBottom: 20 }}
             />
-            <Title order={2}>{name}</Title>
+            <TextInput
+              style={{ marginTop: 20 }}
+              label="Name"
+              placeholder="Your name"
+              size="md"
+              mt="md"
+              value={_name}
+              onChange={(event) => setName(event.currentTarget.value)}
+            ></TextInput>
             <TextInput
               style={{ marginTop: 20 }}
               label="Email"
-              placeholder="Ton email"
+              placeholder="Your email"
               size="md"
               mt="md"
               value={_email}
@@ -74,7 +85,7 @@ export const Profile = ({ name, email, bio, avatarUrl }: ProfileProps) => {
             <TextInput
               style={{ marginTop: 20 }}
               label="Bio"
-              placeholder="Décris toi en quelque mot"
+              placeholder="Describe you in few word"
               size="md"
               mt="md"
               value={description}
@@ -128,6 +139,7 @@ export const Profile = ({ name, email, bio, avatarUrl }: ProfileProps) => {
                 m={20}
                 onClick={() => {
                     setIsLoggedIn(false)
+                    navigate("/");
                 }}
             >
                 Disconnect

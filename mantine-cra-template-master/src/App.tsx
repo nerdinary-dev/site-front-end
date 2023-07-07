@@ -16,6 +16,7 @@ import { HeaderMegaMenu } from "./Components/Header";
 import { Profile } from "./Pages/Profile";
 import CartPage from "./Pages/Cart";
 import { FooterLinks } from "./Components/Footer";
+import { ContactPage } from "./Pages/Contact";
 
 // const items = [
 //   { name: 'Item 1', price: 9.99, quantity: 1 },
@@ -96,6 +97,16 @@ export default function App() {
               <>
                 <HeaderMegaMenu />
                 <ItemPage />
+                <FooterLinks />
+              </>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <>
+                <HeaderMegaMenu />
+                <ContactPage />
                 <FooterLinks />
               </>
             }

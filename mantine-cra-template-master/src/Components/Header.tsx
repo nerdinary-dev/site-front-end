@@ -478,8 +478,8 @@ export function HeaderMegaMenu()  {
                 </SimpleGrid>
               </HoverCard.Dropdown>
             </HoverCard>
-            <a href="#" className={classes.link}>
-              About Us
+            <a href="/contact" className={classes.link}>
+              Contact Us
             </a>
             <a href="#" className={classes.link}>
               Sell Items
@@ -615,8 +615,8 @@ export function HeaderMegaMenu()  {
           </UnstyledButton>
           <Collapse in={technoLinksOpened}>{technoLinks}</Collapse>
           
-          <a href="#" className={classes.link}>
-            About Us
+          <a href="/contact" className={classes.link}>
+            Contact Us
           </a>
           <a href="#" className={classes.link}>
             Sell Items
